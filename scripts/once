@@ -1,0 +1,75 @@
+#!/bin/sh
+
+OPT_TIMEOUT=-1
+OPT_FORCE=0
+OPT_NAME=
+
+help() {
+	echo "Usage: $0 [options] <command> [args..]"
+	echo
+	echo "Options:"
+    echo "  -n, --name           different process name (default is run command)"
+	echo "  -w, --wait           wait for existing process to exit"
+	echo "  -t, --timeout <secs> wait for <secs> seconds for existing process to exit"
+	echo "  -f, --force          kill existing process"
+	echo "  -h, --help           display this help message"
+	exit $1
+}
+
+fatal() {
+	echo "[!] $1"
+	exit 1
+}
+
+while [ : ]; do
+	case "$1" in
+		-n|--name)
+            OPT_NAME=$2
+            shift 2
+            ;;
+		-w|--wait)
+            OPT_TIMEOUT=0
+            shift
+            ;;
+		-t|--timeout)
+            OPT_TIMEOUT=$2
+            shift 2
+            ;;
+		-f|--force)
+            OPT_FORCE=1
+            shift
+            ;;
+		-h|--help)
+            help 
+            shift
+            ;;
+		*)
+            break
+            ;;
+	esac
+done
+
+if [ $# -lt 1 ]; then
+	help 1
+fi
+
+if [ -n "$OPT_NAME" ]; then
+    pid=$(pgrep -xo "$OPT_NAME")
+else
+    pid=$(pgrep -xo "$1")
+fi
+
+
+if [ $? -eq 0 ]; then
+    if [ $OPT_FORCE -eq 1 ]; then
+        kill -9 $pid || fatal "unable to kill process '$pid'"
+    elif [ $OPT_TIMEOUT -ge 0 ]; then
+        waitpid -t $OPT_TIMEOUT $pid || fatal "wait for process '$pid' timeout"
+    else
+        exit 0
+    fi
+fi
+
+exec $@
+
+# vim: ft=bash
