@@ -1,0 +1,18 @@
+# selection
+set selection-clipboard    clipboard
+set selection-notification true
+
+# window
+set window-title-home-tilde true
+set statusbar-basename      true
+set render-loading          true
+
+# search
+set incremental-search true
+set search-hadjust     true
+
+# auto adjust
+set adjust-open width
+
+# load colors
+include colors

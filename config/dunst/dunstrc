@@ -1,0 +1,110 @@
+[global]
+monitor = 0
+follow = mouse
+indicate_hidden = yes
+shrink = no
+transparency = 1
+sort = yes
+#idle_threshold = 0
+show_age_threshold = 120
+ignore_newline = no
+stack_duplicates = yes
+show_indicators = yes
+# hide_duplicate_count = false
+ignore_dbusclose = false
+timeout = 8
+
+# colors
+foreground = "#abb3bf"
+background = "#171b23bb"
+
+# layout
+height = 280
+width = 320
+origin = bottom-right
+offset = 24x24
+alignment = left
+corner_radius = 8
+#vertical_alignment = center
+title = Dunst
+class = Dunst
+
+# progress bar
+progress_bar = true
+progress_bar_height = 14
+progress_bar_frame_width = 1
+progress_bar_min_width = 150
+progress_bar_max_width = 300
+
+# separator
+separator_height = 6
+separator_color = "#282c34"
+
+# padding
+padding = 16
+horizontal_padding = 16
+
+# border
+frame_width = 0
+
+# font
+font = "JetBrainsMono Nerd Font 10"
+line_height = 1
+
+# wrap
+word_wrap = yes
+# ellipsize = middle
+
+# message format
+#  %a appname
+#  %s summary
+#  %b body
+#  %i iconname (including its path)
+#  %I iconname (without its path)
+#  %p progress value if set ([  0%] to [100%]) or nothing
+#  %n progress value if set without any extra characters
+#  %% Literal %
+markup = full
+format = "<b>%a</b>\n%s"
+
+# icons
+icon_position = left
+min_icon_size = 48
+max_icon_size = 48
+enable_recursive_icon_lookup=yes
+icon_theme = Tela-dark
+
+# history
+sticky_history = yes
+history_length = 100
+
+# integration
+#dmenu = /usr/bin/rofi -p dunst:
+browser = /usr/bin/chromium
+always_run_script = false
+
+# mouse
+mouse_left_click = close_current
+mouse_middle_click = do_action, close_current
+mouse_right_click = close_all
+
+[experimental]
+per_monitor_dpi = false
+
+[urgency_low]
+highlight = "#6fa6e7"
+default_icon = dialog-information
+
+[urgency_normal]
+background = "#171b23"
+highlight = "#5ca1ff"
+default_icon = dialog-warning
+
+[urgency_critical]
+background = "#ddaaaa"
+foreground = "#282c34"
+highlight = "#fe6c5a"
+default_icon = dialog-error
+timeout = 0
+
+# vi: ft=ini

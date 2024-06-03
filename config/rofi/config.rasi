@@ -1,0 +1,33 @@
+configuration {
+    // general
+    modi                : "window,ssh,drun";
+    disable-history     : false;
+    terminal            : "wezterm";
+
+    // selection
+    hover-select        : true;
+    auto-select         : false;
+
+    // window
+    font                : "JetBrainsMono Nerd Font Mono 11";
+    hide-scrollbar      : false;
+
+    // icons
+    show-icons          : true;
+    icon-theme          : "Tela-grey-dark"; 
+
+    // prompt
+    display-drun        : "❯";
+    display-run         : "";
+    display-ssh         : "";
+    display-window      : "";
+
+    // window config
+    window {
+        prefer-icon-theme: true;
+    }
+}
+
+@import "themes/onedark.rasi"
+
+// vim: ft=rasi

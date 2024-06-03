@@ -1,0 +1,3 @@
+tray: "auto"
+automount: false
+notify: true

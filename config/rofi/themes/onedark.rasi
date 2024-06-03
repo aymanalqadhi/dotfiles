@@ -1,0 +1,98 @@
+* {
+    active-background: #7789aa;
+    active-foreground: @foreground;
+    normal-background: @background;
+    normal-foreground: @foreground;
+    urgent-background: #798aaa;
+    urgent-foreground: @foreground;
+
+    alternate-active-background: @background;
+    alternate-active-foreground: @foreground;
+    alternate-normal-background: @background;
+    alternate-normal-foreground: @foreground;
+    alternate-urgent-background: @background;
+    alternate-urgent-foreground: @foreground;
+
+    selected-active-background: #798aaa;
+    selected-active-foreground: @foreground;
+    selected-normal-background: #7789aa;
+    selected-normal-foreground: @background;
+    selected-urgent-background: #7b8baa;
+    selected-urgent-foreground: @foreground;
+
+    background-color: @background;
+    background: #282c34;
+    foreground: #abb3bf;
+    border-color: @background;
+}
+
+window {
+    padding: 18px 0px 18px 18px;
+    transparency: "real";
+    border:        0px;
+    location:      center;
+    x-offset:      0;
+    y-offset:      0;
+}
+
+mainbox {
+    children: [ listview, inputbar ];
+    border:   0px;
+    padding:  0px;
+    spacing:  2%;
+}
+
+inputbar {
+    children: [ prompt, entry ];
+    expand:   false;
+}
+
+prompt {
+    enabled: true;
+    font:    "JetBrainsMono Nerd Font Mono 12";
+}
+
+entry {
+    expand:           true;
+    horizontal-align: 0;
+    placeholder:      "filter...";
+    padding:          0px 0px 0px 12px;
+    blink:            true;
+}
+
+listview {
+    border: 0px;
+    padding: 0px;
+    lines:   8;
+    fixed-num-lines: false;
+    cycle:   true;
+    dynamic: true;
+    layout: vertical;
+}
+
+scrollbar {
+    width: 18px;
+    handle-width: 4px;
+    margin: 0px 9px 0px 5px;
+}
+
+element {
+    padding: 8px;
+    border: 0px;
+}
+
+
+element-icon {
+    size:   24px;
+    border: 0px;
+}
+
+element-text {
+    font:               "JetBrainsMono Nerd Font 10";
+    expand:             true;
+    horizontal-align:   0;
+    vertical-align:     0.5;
+    margin:             0% 0.25% 0% 0.25%;
+}
+
+// vim: ft=rasi
