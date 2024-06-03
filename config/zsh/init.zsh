@@ -2,7 +2,7 @@
 umask 027
 
 # load antidote
-source $ZDOTDIR/plugins.zsh
+zstyle ':antidote:bundle' file $ZDOTDIR/plugins.txt
 source $ZDOTDIR/antidote/antidote.zsh && antidote load
 
 # source configuration files
