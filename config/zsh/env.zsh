@@ -24,7 +24,6 @@ export EDITOR="${EDITOR:-nvim}"
 export VISUAL="${VISUAL:-nvim}"
 export PAGER="${PAGER:-less}"
 export LESS="${LESS:--g -i -M -R -S -w -z-4}"
-export NVIM_APPNAME="nvi"
 
 # runsvdir
 export SVDIR="$HOME/.local/service"
