@@ -28,6 +28,10 @@ super + shift + d
 {_,super} Print
 	flameshot {full -c,gui}
 
+# clipboard
+super + v
+	CM_LAUNCHER=rofi clipmenu
+
 ########## window manager ##########
 
 # lock the wm

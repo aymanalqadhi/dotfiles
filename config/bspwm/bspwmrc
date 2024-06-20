@@ -4,6 +4,10 @@
 export XDG_CURRENT_DESKTOP=bspwm
 export XDG_SESSION_TYPE=X11
 
+# clipmenud opts
+export CM_SELECTIONS="clipboard"
+export CM_LAUNCHER="rofi"
+
 # load saved theme & wallpaper
 wal -Rst 2>&1 >/dev/null
 
@@ -76,6 +80,7 @@ done &
 
 # session
 once lxsession -e BSPWM -a &
+once gnome-keyring-daemon --start --components=gpg,pkcs11,secrets,ssh &
 
 # keyboard
 setxkbmap -layout us,ara -option "grp:win_space_toggle"
@@ -102,11 +107,17 @@ xss-lock -n /usr/lib/xsecurelock/dimmer -l -- "$HOME/.config/bspwm/scripts/dimme
 
 # apps
 once picom -b                                      # compositor
+once clipmenud &                                   # clipboard manager
 once dunst &                                       # notifications daemon
 once -n polybar $HOME/.config/polybar/launch.sh &  # top-bar
 once nm-applet &                                   # mounting util
 once udiskie &                                     # mounting util
 once -n redshift redshift-gtk &                    # reduced blue-light indicator
 once easyeffects --gapplication-service -q &       # audio effects
+
+#############   finialization   ###############
+
+# update dbus vars
+dbus-update-activation-environment --all
 
 # vim: ft=bash

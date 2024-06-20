@@ -21,6 +21,7 @@ configuration {
     display-run         : "";
     display-ssh         : "";
     display-window      : "";
+    display-dmenu       : "❯";
 
     // window config
     window {
