@@ -35,6 +35,7 @@ export GOBIN="$GOPATH/bin"
 
 # rust
 export CARGO_HOME="$HOME/.cargo"
+export CARGO_TARGET_DIR=$CARGO_HOME/target
 
 # node
 export NODE_HOME="/opt/node-v18"
