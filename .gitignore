@@ -7,3 +7,4 @@ config/zsh/plugins.zsh
 config/zsh/.zprofile
 config/zsh/.zsh_plugins.txt
 config/zsh/.zshrc
+config/zsh/antidote
