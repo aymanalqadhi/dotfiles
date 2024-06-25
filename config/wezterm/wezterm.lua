@@ -18,7 +18,7 @@ local config = wezterm.config_builder()
 config.bidi_enabled = true
 config.font = font
 config.font_size = 10
-config.freetype_load_target = "HorizontalLcd"
+config.freetype_load_target = "Light"
 
 -- theme
 config.term = "wezterm"
