@@ -1,9 +1,21 @@
 * {
-    active-background: #7789aa;
+    foreground: #abb3bf;
+    background: #282c34;
+    background-light: #7789aa;
+    background-highlight: #31353f;
+
+    red: #e86671;
+    red-dark: #993939;
+
+    text-color: @foreground;
+    border-color: @background;
+    background-color: transparent;
+
+    active-background: @background-light;
     active-foreground: @foreground;
     normal-background: @background;
     normal-foreground: @foreground;
-    urgent-background: #798aaa;
+    urgent-background: @background-light;
     urgent-foreground: @foreground;
 
     alternate-active-background: @background;
@@ -13,77 +25,82 @@
     alternate-urgent-background: @background;
     alternate-urgent-foreground: @foreground;
 
-    selected-active-background: #798aaa;
+    selected-active-background: @background-light;
     selected-active-foreground: @foreground;
-    selected-normal-background: #7789aa;
+    selected-normal-background: @background-light;
     selected-normal-foreground: @background;
-    selected-urgent-background: #7b8baa;
+    selected-urgent-background: @background-light;
     selected-urgent-foreground: @foreground;
-
-    background-color: @background;
-    background: #282c34;
-    foreground: #abb3bf;
-    border-color: @background;
 }
 
 window {
-    padding: 18px 0px 18px 18px;
+    margin: 0px;
+    padding: 0px;
+    border: 0px;
+
+    location: center;
+    anchor: north;
+    x-offset: 0px;
+    y-offset: -25%;
+
     transparency: "real";
-    border:        0px;
-    location:      center;
-    x-offset:      0;
-    y-offset:      0;
 }
 
 mainbox {
-    children: [ listview, inputbar ];
-    border:   0px;
-    padding:  0px;
-    spacing:  2%;
+    children: [ inputbar, listview ];
 }
 
 inputbar {
-    children: [ prompt, entry ];
-    expand:   false;
-}
+    padding: 18px;
+    margin: 0px;
+    expand: false;
 
-prompt {
-    enabled: true;
-    font:    "JetBrainsMono Nerd Font Mono 12";
+    background-color: @background-highlight;
+
+    children: [ prompt, entry, num-filtered-rows, textbox-slash, num-rows ];
+    spacing: 8px;
 }
 
 entry {
-    expand:           true;
+    margin: 0px 0px 0px 4px;
+    blink: true;
+    expand: true;
     horizontal-align: 0;
-    placeholder:      "filter...";
-    padding:          0px 0px 0px 12px;
-    blink:            true;
+    placeholder: "Filter...";
 }
 
 listview {
-    border: 0px;
+    border:  0px;
     padding: 0px;
-    lines:   8;
-    fixed-num-lines: false;
-    cycle:   true;
+
+    lines: 8;
+    columns: 2;
+    fixed-height: false;
+    fixed-columns: false;
+
+    cycle: true;
     dynamic: true;
-    layout: vertical;
+    scrollbar: false;
 }
 
 scrollbar {
-    width: 18px;
-    handle-width: 4px;
-    margin: 0px 9px 0px 5px;
+    width: 6px;
+    margin: 0px 4px 0px 2px;
+    handle-width: 2px;
 }
 
 element {
+    cursor: pointer;
     padding: 8px;
     border: 0px;
 }
 
+element selected.urgent {
+    background-color: @red;
+}
 
 element-icon {
-    size:   24px;
+    size: 24px;
     border: 0px;
 }
 
@@ -93,6 +110,18 @@ element-text {
     horizontal-align:   0;
     vertical-align:     0.5;
     margin:             0% 0.25% 0% 0.25%;
+}
+
+error-message {
+    padding: 6px;
+    border: 2px solid;
+    border-color: @red;
+}
+
+textbox-slash {
+    expand: false;
+    content: "/";
+    text-color: @foreground;
 }
 
 // vim: ft=rasi

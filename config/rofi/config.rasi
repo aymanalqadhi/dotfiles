@@ -3,29 +3,41 @@ configuration {
     modi                : "window,ssh,drun";
     disable-history     : false;
     terminal            : "wezterm";
-
-    // selection
-    hover-select        : true;
-    auto-select         : false;
+    ssh-command         : "{terminal} ssh {host}[:{port}]";
 
     // window
-    font                : "JetBrainsMono Nerd Font Mono 11";
-    hide-scrollbar      : false;
+    font                : "JetBrainsMono Nerd Font 11";
+    hide-scrollbar      : true;
 
     // icons
     show-icons          : true;
     icon-theme          : "Tela-grey-dark"; 
 
-    // prompt
-    display-drun        : "❯";
-    display-run         : "";
-    display-ssh         : "";
-    display-window      : "";
-    display-dmenu       : "❯";
+    /****  modes config ****/
 
-    // window config
     window {
+        display-name: "";
         prefer-icon-theme: true;
+        hide-active-window: true;
+    }
+
+    drun {
+        display-name: "❯";
+        fallback-icon: "application-x-addon";
+    }
+
+    run {
+        display-name: "";
+        fallback-icon: "application-x-executable";
+    }
+
+    dmenu {
+        display-name: "";
+        fallback-icon: "go-right";
+    }
+
+    ssh {
+        display-name: "";
     }
 }
 
