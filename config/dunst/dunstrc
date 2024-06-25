@@ -69,8 +69,8 @@ format = "<b>%a</b>\n%s"
 
 # icons
 icon_position = left
-min_icon_size = 48
-max_icon_size = 48
+min_icon_size = 38
+max_icon_size = 38
 enable_recursive_icon_lookup=yes
 icon_theme = Tela-dark
 
