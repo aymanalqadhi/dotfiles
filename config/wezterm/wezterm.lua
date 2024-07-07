@@ -5,20 +5,24 @@ local wezterm = require("wezterm")
 local padding_on = { left = 12, right = 12, top = 8, bottom = 8 }
 local padding_off = { left = 0, right = 0, top = 0, bottom = 0 }
 
--- { font0, font1 }font
-local fonts = {
-  { family = "JetBrainsMono Nerd Font Mono" }
-}
-local font = wezterm.font_with_fallback(fonts)
+-- font
+local font = wezterm.font_with_fallback({
+  { family = "JetBrains Mono" },
+  { family = "Symbols Nerd Font", scale = 0.88 },
+})
 
 -- [[ config ]]
 local config = wezterm.config_builder()
 
+-- general
+config.webgpu_power_preference = "HighPerformance"
+config.enable_wayland = false
+
 -- font
 config.bidi_enabled = true
 config.font = font
-config.font_size = 10
-config.freetype_load_target = "Light"
+config.font_size = 10.2
+config.dpi = 96
 
 -- theme
 config.term = "wezterm"
@@ -32,7 +36,7 @@ config.tab_max_width = 24
 
 -- window
 config.enable_scroll_bar = false
-config.window_background_opacity = 0.85
+config.window_background_opacity = 0.90
 config.window_frame = { font = font, font_size = 10.0 }
 config.window_padding = padding_on
 
