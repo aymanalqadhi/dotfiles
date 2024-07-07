@@ -46,8 +46,14 @@ export PURE_GIT_PULL=0
 
 # path
 path=(
-  # admin binaries
+  # system binaries
+  /bin
   /sbin
+  /usr/bin
+  /usr/sbin
+
+  # local paths
+  $HOME/.local/{sbin,bin{,/platform-tools},scripts,share/bob/nvim-bin}
 
   # rust paths
   $CARGO_HOME/bin
@@ -57,9 +63,6 @@ path=(
 
   # node
   $NODE_HOME/bin
-
-  # local paths
-  $HOME/.local/{bin{,/platform-tools},scripts,share/bob/nvim-bin}
 
   # original path value
   $path
