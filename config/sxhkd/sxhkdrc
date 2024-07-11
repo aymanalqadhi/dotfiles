@@ -194,11 +194,12 @@ super + {Left,Down,Up,Right}
 ########## system ##########
 
 # brightness
-XF86MonBrightness{Up,Down}  
+XF86MonBrightness{Up,Down}
 	xbacklight -{inc,dec} 5
 
-shift + XF86MonBrightness{Up,Down}  
-	ddcutil -b 3 set 10 {+,-} 5
+# brightness (external monitor)
+shift + XF86MonBrightness{Up,Down}
+	brightnessctl -d ddcci3 set 5%{+,-}
 
 # volume increase/decrease
 XF86Audio{Raise,Lower}Volume
