@@ -1,7 +1,7 @@
 # ls
-alias ls="lsd"
+alias ls="exa"
 alias ll='ls -lh'
-alias la='ls -lAh'
+alias la='ls -lah'
 alias ldot='ls -ld .*'
 
 # tar
