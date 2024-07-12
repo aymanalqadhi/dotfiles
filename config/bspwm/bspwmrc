@@ -77,15 +77,13 @@ once sxhkd &
 
 # audio
 once -f pipewire &
-once -f pipewire-pulse &
-once -f wireplumber &
 
 # screen lock
 xss-lock -n /usr/lib/xsecurelock/dimmer -l -- "${XDG_CONFIG_HOME:-$HOME/.config}/bspwm/scripts/dimmer" &
 
 # apps
 once picom -b                                      # compositor
-once batsignal -b                                  # battery notifications
+once batsignal -pb -a "System Power"               # battery notifications
 once clipmenud &                                   # clipboard manager
 once dunst &                                       # notifications daemon
 once -n polybar $HOME/.config/polybar/launch.sh &  # top-bar
