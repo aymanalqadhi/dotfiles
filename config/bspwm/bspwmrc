@@ -4,6 +4,15 @@
 export CM_SELECTIONS="clipboard"
 export CM_LAUNCHER="rofi"
 
+# java gui fixes
+export _JAVA_AWT_WM_NONREPARENTING=1
+export JDK_JAVA_OPTIONS="\
+	-Dawt.useSystemAAFontSettings=on \
+	-Dswing.aatext=true \
+	-Djdk.gtk.version=3 \
+	-Dsun.java2d.opengl=true \
+	-Dswing.defaultlaf=com.sun.java.swing.plaf.gtk.GTKLookAndFeel \
+	-Dswing.crossplatformlaf=com.sun.java.swing.plaf.gtk.GTKLookAndFeel";
 #############   configuration   ###############
 bspc config window_gap                 8
 bspc config split_ratio                0.50
