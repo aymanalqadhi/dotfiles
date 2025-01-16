@@ -9,6 +9,8 @@ local padding_off = { left = 0, right = 0, top = 0, bottom = 0 }
 local font = wezterm.font_with_fallback({
   { family = "JetBrains Mono" },
   { family = "Symbols Nerd Font", scale = 0.88 },
+  { family = "Noto Color Emoji" },
+  { family = "DejaVu Sans Mono" },
 })
 
 -- [[ config ]]
@@ -22,7 +24,6 @@ config.enable_wayland = false
 config.bidi_enabled = true
 config.font = font
 config.font_size = 10.2
-config.dpi = 96
 
 -- theme
 config.term = "wezterm"
