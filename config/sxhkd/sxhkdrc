@@ -116,7 +116,7 @@ super + l
 
 # swap window in direction
 super + shift + {h,j,k,l}
-	bspc node -s west,south,north,east
+	bspc node -s {west,south,north,east}
 
 # focus or send to the given desktop
 super + {_,shift + }{1-8}
@@ -195,7 +195,7 @@ super + {Left,Down,Up,Right}
 
 # brightness
 XF86MonBrightness{Up,Down}
-	xbacklight -{inc,dec} 5
+	brightnessctl set 5%{+,-}
 
 # brightness (external monitor)
 shift + XF86MonBrightness{Up,Down}
