@@ -69,7 +69,7 @@ path=(
 )
 
 # functions path
-fpath=($HOME/.config/zsh/comp $fpath)
+fpath=($XDG_CONFIG_HOME/zsh/comp $fpath)
 
 # keys
 key[Home]="${terminfo[khome]}"
