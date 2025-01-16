@@ -3,8 +3,10 @@
 killall -KILL polybar
 
 declare -A bars=(
-	['DP-3']='primary'
-	['HDMI-0']='secondary'
+	['eDP-1']='primary'
+	['HDMI-1-0']='secondary'
+    ['DP-1-0.2']='secondary'
+    ['DP-1-0.3']='secondary'
 )
 
 run_bar() {
