@@ -79,8 +79,8 @@ bindkey -M viins '^R' history-incremental-pattern-search-backward
 bindkey -M viins '^F' history-incremental-pattern-search-forward
 
 ## completion
-bindkey "^[OA" up-line-or-beginning-search
-bindkey "^[OB" down-line-or-beginning-search
+bindkey "^[[A" up-line-or-beginning-search
+bindkey "^[[B" down-line-or-beginning-search
 bindkey "^P"  up-line-or-beginning-search
 bindkey "^N"   down-line-or-beginning-search
 bindkey -M menuselect '^[[Z' reverse-menu-complete
