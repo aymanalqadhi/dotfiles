@@ -1,5 +1,8 @@
 #!/bin/sh
 
+# kvantum theme
+export QT_STYLE_OVERRIDE=kvantum
+
 # clipmenud opts
 export CM_SELECTIONS="clipboard"
 export CM_LAUNCHER="rofi"
