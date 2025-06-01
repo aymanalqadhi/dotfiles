@@ -191,6 +191,12 @@ super + alt + l
 super + {Left,Down,Up,Right}
 	bspc node -v {-20 0,0 20,0 -20,20 0}
 
+########## display ##########
+
+# flip display horizontally/vertically
+super + {_,shift} + backslash
+	xrandr -{x,y}
+
 ########## system ##########
 
 # brightness
