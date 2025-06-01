@@ -1,6 +1,3 @@
-# kvantum theme
-export QT_STYLE_OVERRIDE=kvantum
-
 # autostart X
 if [ -z "$DISPLAY" ] && [ "$XDG_VTNR" = 1 ]; then
   exec startx
