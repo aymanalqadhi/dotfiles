@@ -54,11 +54,13 @@ bspc config presel_feedback_color      "$(xrdb -g color3)"
 
 # rules
 bspc rule -a 'Chromium' -o desktop=3 follow=on
-bspc rule -a 'Telegram'    desktop=8
-bspc rule -a 'flameshot'   state='floating'
-bspc rule -a 'PCSX2'       state='floating'
-bspc rule -a '*:SPLASH'    state='floating'
-bspc rule -a 'mpv'         state='floating'
+bspc rule -a 'Telegram' desktop=8
+bspc rule -a 'flameshot' state='floating'
+bspc rule -a 'PCSX2' state='floating'
+bspc rule -a '*:SPLASH' state='floating'
+bspc rule -a 'mpv' state='floating'
+bspc rule -a 'Sloaar' state='floating'
+bspc rule -a 'nm-connection-editor' state='floating'
 
 #############    desktops   ###############
 update_monitors() {
