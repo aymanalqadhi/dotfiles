@@ -19,11 +19,15 @@ export XDG_STATE_HOME=${XDG_STATE_HOME:-$HOME/.local/state}
 # zsh init path
 export ZDOTDIR=${ZDOTDIR:-${XDG_CONFIG_HOME}/zsh}
 
-# apps
+# text
 export EDITOR="${EDITOR:-nvim}"
 export VISUAL="${VISUAL:-nvim}"
-export PAGER="${PAGER:-less}"
-export LESS="${LESS:--g -i -M -R -S -w -z-4}"
+export LESS="${LESS:--g -i -M -R -w -z-4 --use-color}"
+
+if [ -z "$PAGER" ] && which bat 2>&1 >/dev/null; then
+  export PAGER="bat"
+  export MANPAGER="bat --language=man --strip-ansi=always --style=plain"
+fi
 
 # runsvdir
 export SVDIR="$HOME/.local/service"

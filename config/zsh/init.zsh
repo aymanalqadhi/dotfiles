@@ -13,6 +13,6 @@ source $ZDOTDIR/aliases.zsh
 prompt pure
 
 # fortune cookies
-fortune 2>/dev/null || true
+fortune 2>/dev/null
 
 # vim: ft=zsh sw=2 ts=2 et
