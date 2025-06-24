@@ -36,7 +36,7 @@ filextype *.gif
   \ {Loop} mpv --loop=inf %f %i &,
 
 filextype *.bmp,*.jpg,*.jpeg,*.png,*.gif,*.xpm,*.svg,*.ico
-  \ feh %f &,
+  \ feh -d --scale-down %f &,
 fileview *.bmp,*.jpg,*.jpeg,*.png,*.gif,*.xpm,*.svg,*.ico
   \ identify %f
 

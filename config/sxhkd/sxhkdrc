@@ -8,7 +8,7 @@ super + Return
 
 # browser
 super + {_,shift + } w
-	chromium {_,--incognito}
+	env DESKTOP_SESSION=xfce XDG_CURRENT_DESKTOP=xfce chromium {_,--incognito}
 
 # run an app
 super + s

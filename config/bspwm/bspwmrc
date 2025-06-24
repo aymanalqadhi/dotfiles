@@ -108,15 +108,15 @@ once -w -f pipewire &
 xss-lock -n /usr/lib/xsecurelock/dimmer -l -- "$XDG_CONFIG_HOME/bspwm/scripts/dimmer" &
 
 # apps
-once -w picom -b                                                  # compositor
-once -w batsignal -epb -a "System Power"                          # battery notifications
-once -w clipmenud &                                               # clipboard manager
-once -w dunst &                                                   # notifications daemon
-once -w -n polybar "$XDG_CONFIG_HOME/.config/polybar/launch.sh" & # top-bar
-once -w nm-applet &                                               # mounting util
-once -w udiskie &                                                 # mounting util
-once -w -n redshift redshift-gtk &                                # reduced blue-light indicator
-once -w easyeffects --gapplication-service -q &                   # audio effects
+once -w picom -b                                          # compositor
+once -w batsignal -epb -a "System Power"                  # battery notifications
+once -w clipmenud &                                       # clipboard manager
+once -w dunst &                                           # notifications daemon
+once -w -n polybar "$XDG_CONFIG_HOME/polybar/launch.sh" & # top-bar
+once -w nm-applet &                                       # mounting util
+once -w udiskie &                                         # mounting util
+once -w -n redshift redshift-gtk &                        # reduced blue-light indicator
+once -w easyeffects --gapplication-service -q &           # audio effects
 
 #############   finialization   ###############
 
