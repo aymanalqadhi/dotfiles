@@ -3,8 +3,9 @@ typeset -U path PATH
 typeset -g -A key
 
 # zsh options
-export KEYTIMEOUT=1
-export ZLS_COLORS=$LS_COLORS
+KEYTIMEOUT=1
+ZLS_COLORS=$LS_COLORS
+skip_global_compinit=1
 
 # locale
 export LANG="${LANG:-en_US.UTF-8}"

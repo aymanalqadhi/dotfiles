@@ -1,91 +1,98 @@
-########## general ##########
-
+HISTFILE="${ZDOTDIR:-$HOME}/${ZHISTFILE:-.zsh_history}"
+HISTSIZE=10000
+SAVEHIST=10000
 WORDCHARS='*?_-.[]~&;!#$%^(){}<>'
 
 # options
+setopt always_to_end
+setopt auto_list
+setopt auto_menu
+setopt auto_param_slash
+setopt bang_hist
+setopt complete_in_word
 setopt extended_glob
-setopt no_beep
-setopt no_hist_beep
+setopt extended_history
+setopt hist_expire_dups_first
+setopt hist_find_no_dups
+setopt hist_find_no_dups
+setopt hist_ignore_dups
+setopt hist_ignore_space
+setopt hist_reduce_blanks
+setopt hist_verify
+setopt inc_append_history
+setopt interactive_comments
+setopt menu_complete
+setopt promptsubst
+unsetopt beep
+unsetopt hist_beep
+unsetopt flow_control
+unsetopt singlelinezle
 
-########## completion ##########
-
-autoload -Uz compinit && compinit
-
-# options
-setopt complete_in_word    # Complete from both ends of a word.
-setopt always_to_end       # Move cursor to the end of a completed word.
-setopt auto_menu           # Show completion menu on a successive tab press.
-setopt auto_list           # Automatically list choices on ambiguous completion.
-setopt auto_param_slash    # If completed parameter is a directory, add a trailing slash.
-setopt extended_glob       # Needed for file modification glob modifiers with compinit
-unsetopt menu_complete     # Do not autoselect the first completion entry.
-unsetopt flow_control      # Disable start/stop characters in shell editor.
-
-# style
-
-## base
-zstyle ':completion:*' completer _extensions _complete _approximate
+# completion menu style
+zstyle ':completion:*' completer _extensions _complete _match _approximate
 zstyle ':completion:*' complete true
-
-## caching
 zstyle ':completion:*' use-cache on
 zstyle ':completion:*' cache-path "$XDG_CACHE_HOME/zsh/.zcompcache"
-
-## menu
 zstyle ':completion:*' menu select search
 zstyle ':completion:*' file-sort change reverse
-
-## formatting
 zstyle ':completion:*:*:*:*:corrections' format '%F{yellow}!- %d (errors: %e) -!%f'
 zstyle ':completion:*:*:*:*:descriptions' format '%F{blue}-- %D %d --%f'
 zstyle ':completion:*:*:*:*:messages' format ' %F{purple} -- %d --%f'
 zstyle ':completion:*:*:*:*:warnings' format ' %F{red}-- no matches found --%f'
 zstyle ':completion:*:default' list-prompt '%S%M matches%s'
 zstyle ':completion:*:*:*:*:default' list-colors ${(s.:.)LS_COLORS}
-
-## grouping
 zstyle ':completion:*' group-name ''
 zstyle ':completion:*:*:-command-:*:*' group-order aliases builtins functions commands
-
-## behavior
 zstyle ':completion:*' squeeze-slashes true
 zstyle ':completion:*' keep-prefix true
 zstyle ':completion:*' complete-options true
 zstyle ':completion:*' matcher-list '' 'm:{a-zA-Z}={A-Za-z}' 'r:|[._-]=* r:|=*' 'l:|=* r:|=*'
 
-########## history ##########
-
-# config
-HISTFILE="${ZDOTDIR:-$HOME}/${ZHISTFILE:-.zsh_history}"
-HISTSIZE=10000
-SAVEHIST=10000
-
-# options
-setopt bang_hist              # Treat the '!' character specially during expansion.
-setopt extended_history       # Write the history file in the ':start:elapsed;command' format.
-setopt inc_append_history     # Write to the history file immediately, not when the shell exits.
-setopt hist_expire_dups_first # Expire a duplicate event first when trimming history.
-setopt hist_ignore_dups       # Do not record an event that was just recorded again.
-setopt hist_ignore_all_dups   # Delete an old recorded event if a new event is a duplicate.
-setopt hist_find_no_dups      # Do not display a previously found event.
-setopt hist_ignore_space      # Do not record an event starting with a space.
-setopt hist_save_no_dups      # Do not write a duplicate event to the history file.
-setopt hist_verify            # Do not execute immediately upon history expansion.
-setopt hist_beep              # Beep when accessing non-existent history.
-
 # keymaps
-autoload -Uz up-line-or-beginning-search
-autoload -Uz down-line-or-beginning-search
+zmodload zsh/complist
 
-zle -N up-line-or-beginning-search
-zle -N down-line-or-beginning-search
+autoload -U up-line-or-beginning-search
+autoload -U down-line-or-beginning-search
 
-bindkey '^R' history-incremental-pattern-search-backward
-bindkey '^F' history-incremental-pattern-search-forward
+## fix delete key
+bindkey '^[[3~' delete-char
+bindkey '^[3;5~' delete-char
 
-bindkey '^P' up-line-or-beginning-search
-bindkey '^N' down-line-or-beginning-search
+## completion menu
+bindkey '^ '                 expand-or-complete-prefix
+bindkey -M menuselect '^y'   accept-line
+bindkey -M menuselect '^o'   accept-and-infer-next-history
+bindkey -M menuselect '^e'   send-break
+bindkey -M menuselect '^n'   menu-complete
+bindkey -M menuselect '^p'   reverse-menu-complete
+bindkey -M menuselect '^[[Z' reverse-menu-complete
+bindkey -M menuselect '^s'   history-incremental-search-forward
+bindkey -M menuselect '^r'   history-incremental-search-backward
 
-########## prompt ##########
+## vi-mode
+update_vimode_keymaps() {
+  zle -N up-line-or-beginning-search
+  zle -N down-line-or-beginning-search
 
-autoload -Uz promptinit && promptinit
+  ## history search
+  bindkey -M viins '^s' history-incremental-pattern-search-backward
+  bindkey -M viins '^r' history-incremental-pattern-search-forward
+  bindkey -M vicmd '?'  history-incremental-pattern-search-backward
+  bindkey -M vicmd '/'  history-incremental-pattern-search-forward
+
+  ## menu items selection
+  bindkey -M viins '^p' up-line-or-beginning-search
+  bindkey -M viins '^n' down-line-or-beginning-search
+  bindkey -M vicmd 'k'  up-line-or-beginning-search
+  bindkey -M vicmd 'j'  down-line-or-beginning-search
+
+  ## moving
+  bindkey -M viins '^A' beginning-of-line
+  bindkey -M viins '^E' end-of-line
+  bindkey -M viins '^B' backward-char
+  bindkey -M viins '^F' forward-char
+}
+
+update_vimode_keymaps
+
+# vim: ft=zsh sw=2 ts=2 et
