@@ -1,1 +1,1 @@
-/home/void/.config/zsh/env.zsh
+env.zsh
