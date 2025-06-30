@@ -16,12 +16,8 @@ alias urlencode='python3 -c "import sys, urllib.parse as ul; print (ul.quote_plu
 alias htmldecode="perl -MHTML::Entities -pe 'decode_entities($_);"
 alias htmldecode="perl -MHTML::Entities -pe 'decode_entities($_);"
 
-# borderless apps
-alias tx="borderless tmux"
-alias nv="borderless nvim"
-
 # mpd/ncmpcpp
-alias ncmpcpp="MPD_HOST=$HOME/.local/share/mpd/socket ncmpcpp"
+alias ncmpcpp="MPD_HOST=$XDG_DATA_HOME/mpd/socket ncmpcpp"
 
 # fzf
 alias f=fzf
