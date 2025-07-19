@@ -217,9 +217,9 @@ XF86{Audio,AudioMic}Mute
 
 # music player
 super + {less,greater,question,comma,period}
-	mpc --host=$HOME/.local/share/mpd/socket {prev,next,toggle,seek -12, seek +12}
+	mpc {prev,next,toggle,seek -12, seek +12}
 
 XF86Audio{Prev,Next,Play}
-	mpc --host=$HOME/.local/share/mpd/socket {prev,next,toggle}
+	mpc {prev,next,toggle}
 
 # vim: ft=bash
