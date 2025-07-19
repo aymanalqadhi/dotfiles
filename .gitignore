@@ -4,3 +4,4 @@ config/vifm/vifminfo.json
 config/zsh/.zcompdump
 config/zsh/antidote
 config/zsh/.zsh_history
+config/mpd/playlists
