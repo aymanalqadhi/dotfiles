@@ -96,7 +96,6 @@ done &
 
 # session
 once -w lxsession -e BSPWM -a &
-once -w gnome-keyring-daemon --start --components=gpg,pkcs11,secrets,ssh -d
 
 # key bindings
 once -w sxhkd &
