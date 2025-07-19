@@ -1,9 +1,6 @@
-# default permissions
-umask 027
-
-# source configuration files
 . $ZDOTDIR/config.zsh
-. $ZDOTDIR/aliases.zsh
 . $ZDOTDIR/plugins.zsh
+. $ZDOTDIR/keymaps.zsh
+. $ZDOTDIR/aliases.zsh
 
 # vim: ft=zsh sw=2 ts=2 et

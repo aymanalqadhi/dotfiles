@@ -1,7 +1,7 @@
-HISTFILE="${ZDOTDIR:-$HOME}/${ZHISTFILE:-.zsh_history}"
+# history config
+HISTFILE="$ZDOTDIR/${ZHISTFILE:-.zsh_history}"
 HISTSIZE=10000
-SAVEHIST=10000
-WORDCHARS='*?_-.[]~&;!#$%^(){}<>'
+SAVEHIST=$HISTSIZE
 
 # options
 setopt always_to_end
@@ -47,52 +47,5 @@ zstyle ':completion:*' squeeze-slashes true
 zstyle ':completion:*' keep-prefix true
 zstyle ':completion:*' complete-options true
 zstyle ':completion:*' matcher-list '' 'm:{a-zA-Z}={A-Za-z}' 'r:|[._-]=* r:|=*' 'l:|=* r:|=*'
-
-# keymaps
-zmodload zsh/complist
-
-autoload -U up-line-or-beginning-search
-autoload -U down-line-or-beginning-search
-
-## fix delete key
-bindkey '^[[3~' delete-char
-bindkey '^[3;5~' delete-char
-
-## completion menu
-bindkey '^ '                 expand-or-complete-prefix
-bindkey -M menuselect '^y'   accept-line
-bindkey -M menuselect '^o'   accept-and-infer-next-history
-bindkey -M menuselect '^e'   send-break
-bindkey -M menuselect '^n'   menu-complete
-bindkey -M menuselect '^p'   reverse-menu-complete
-bindkey -M menuselect '^[[Z' reverse-menu-complete
-bindkey -M menuselect '^s'   history-incremental-search-forward
-bindkey -M menuselect '^r'   history-incremental-search-backward
-
-## vi-mode
-update_vimode_keymaps() {
-  zle -N up-line-or-beginning-search
-  zle -N down-line-or-beginning-search
-
-  ## history search
-  bindkey -M viins '^s' history-incremental-pattern-search-backward
-  bindkey -M viins '^r' history-incremental-pattern-search-forward
-  bindkey -M vicmd '?'  history-incremental-pattern-search-backward
-  bindkey -M vicmd '/'  history-incremental-pattern-search-forward
-
-  ## menu items selection
-  bindkey -M viins '^p' up-line-or-beginning-search
-  bindkey -M viins '^n' down-line-or-beginning-search
-  bindkey -M vicmd 'k'  up-line-or-beginning-search
-  bindkey -M vicmd 'j'  down-line-or-beginning-search
-
-  ## moving
-  bindkey -M viins '^A' beginning-of-line
-  bindkey -M viins '^E' end-of-line
-  bindkey -M viins '^B' backward-char
-  bindkey -M viins '^F' forward-char
-}
-
-update_vimode_keymaps
 
 # vim: ft=zsh sw=2 ts=2 et
