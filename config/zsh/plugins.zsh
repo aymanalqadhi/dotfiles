@@ -5,6 +5,10 @@
 # zsh-autosuggestions
 ZSH_AUTOSUGGEST_STRATEGY=(history completion)
 
+## fast-syntax-highlighting
+declare -A FAST_HIGHLIGHT
+FAST_HIGHLIGHT=(chroma-make  "")
+
 # pure
 PURE_CMD_MAX_EXEC_TIME=15
 PURE_GIT_PULL=0
