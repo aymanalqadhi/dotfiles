@@ -1,0 +1,36 @@
+#!env bash
+
+# env
+export XDG_CURRENT_DESKTOP=bspwm
+export XDG_SESSION_TYPE=X11
+
+# keyboard
+setxkbmap -layout us,ara -option "grp:win_space_toggle"
+xinput set-prop 13 339 1
+xinput set-prop 13 341 1
+xinput set-prop 13 347 0
+xinput set-prop 13 349 1
+
+# font
+xset +fp "${XDG_DATA_HOME}/fonts"
+xset fp rehash
+
+# lock timeout
+xset s 300 5
+
+# load resources
+wal -Rnst >/dev/null 2>&1
+xrdb -merge ~/.Xresources
+
+# set cursor shape
+xsetroot -cursor_name left_ptr
+
+# layout
+monitor_layout="$HOME/.screenlayout/layout-$(xrandr | grep -cw connected).sh"
+[ -f "$monitor_layout" ] && . "$monitor_layout"
+
+# set wallpaper
+[ -f "$HOME/.fehbg" ] && "$HOME/.fehbg"
+
+# start window manager
+exec dbus-launch --exit-with-session bspwm
