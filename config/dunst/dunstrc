@@ -1,9 +1,10 @@
 [global]
 monitor = 0
 follow = mouse
+
 indicate_hidden = yes
 shrink = no
-transparency = 1
+transparency = 50
 sort = yes
 #idle_threshold = 0
 show_age_threshold = 120
@@ -19,10 +20,10 @@ foreground = "#abb3bf"
 background = "#171b23bb"
 
 # layout
-height = 280
-width = 320
+height = (0, 320)
+width = (320, 380)
 origin = bottom-right
-offset = 24x24
+offset = (24, 24)
 alignment = left
 corner_radius = 8
 #vertical_alignment = center
@@ -65,12 +66,12 @@ word_wrap = yes
 #  %n progress value if set without any extra characters
 #  %% Literal %
 markup = full
-format = "<b>%a</b>\n%s"
+format = "<b>%a</b> • %s\n%b"
 
 # icons
 icon_position = left
-min_icon_size = 38
-max_icon_size = 38
+min_icon_size = 32
+max_icon_size = 32
 enable_recursive_icon_lookup=yes
 icon_theme = Tela-dark
 
@@ -79,9 +80,9 @@ sticky_history = yes
 history_length = 100
 
 # integration
-#dmenu = /usr/bin/rofi -p dunst:
-browser = /usr/bin/chromium
-always_run_script = false
+dmenu = /usr/bin/rofi -p dunst:
+browser = /usr/bin/xdg-open
+always_run_script = true
 
 # mouse
 mouse_left_click = close_current
@@ -94,11 +95,14 @@ per_monitor_dpi = false
 [urgency_low]
 highlight = "#6fa6e7"
 default_icon = dialog-information
+timeout = 20
 
 [urgency_normal]
 background = "#171b23"
 highlight = "#5ca1ff"
 default_icon = dialog-warning
+timeout = 20
+override_pause_level = 30
 
 [urgency_critical]
 background = "#ddaaaa"
@@ -106,5 +110,6 @@ foreground = "#282c34"
 highlight = "#fe6c5a"
 default_icon = dialog-error
 timeout = 0
+override_pause_level = 60
 
-# vi: ft=ini
+# vim: ft=cfg
