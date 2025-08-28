@@ -1,7 +1,7 @@
 #!/bin/sh
 
 while [ -f "$MPD_PID" ]; do
-    mpc --host="$MPD_HOST" current |
+    mpc current |
         xargs -d'\n' basename 2>/dev/null |
         cut -d. -f1 |
         fribidi --nopad || break
