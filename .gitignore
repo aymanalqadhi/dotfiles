@@ -2,6 +2,5 @@ config/lazygit/state.yml
 config/ncmpcpp/error.log
 config/vifm/vifminfo.json
 config/zsh/.zcompdump
-config/zsh/antidote
 config/zsh/.zsh_history
 config/mpd/playlists

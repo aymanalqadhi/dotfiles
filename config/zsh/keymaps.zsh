@@ -72,6 +72,11 @@ bindkey -M viins '^A' beginning-of-line
 bindkey -M viins '^E' end-of-line
 bindkey -M viins '^B' backward-char
 bindkey -M viins '^F' forward-char
+## editing
+bindkey -M viins '^W' backward-kill-word
+bindkey -M viins '^?' backward-delete-char
+bindkey -M viins '^K' kill-line
+bindkey -M viins '^U' backward-kill-line
 
 # setup application mode
 if (( ${+terminfo[smkx]} && ${+terminfo[rmkx]} )); then
