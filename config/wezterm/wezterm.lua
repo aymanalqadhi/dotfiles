@@ -1,5 +1,4 @@
 local util = require("lua/util")
-
 local wezterm = require("wezterm")
 
 -- [[ constants ]]
@@ -62,7 +61,7 @@ end)
 
 -- cd into clicked directory
 wezterm.on("open-uri", function(_, pane, uri)
-  if uri.scheme == "file" and not pane:is_alt_screen_active() then
+  if uri:find("^file:") == 1 and not pane:is_alt_screen_active() then
     local url = wezterm.url.parse(uri)
 
     if util.is_shell(pane:get_foreground_process_name()) then
