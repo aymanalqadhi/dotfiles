@@ -1,3 +1,5 @@
+local util = require("lua/util")
+
 local wezterm = require("wezterm")
 
 -- [[ constants ]]
@@ -44,7 +46,7 @@ config.window_padding = padding_on
 -- [[ events ]]
 
 -- toggle padding on demand
-wezterm.on('toggle-padding', function(window, _)
+wezterm.on("toggle-padding", function(window, _)
   local overrides = window:get_config_overrides() or {}
 
   if wezterm.GLOBAL.has_padding == false then
@@ -58,88 +60,105 @@ wezterm.on('toggle-padding', function(window, _)
   window:set_config_overrides(overrides)
 end)
 
+-- cd into clicked directory
+wezterm.on("open-uri", function(_, pane, uri)
+  if uri.scheme == "file" and not pane:is_alt_screen_active() then
+    local url = wezterm.url.parse(uri)
+
+    if util.is_shell(pane:get_foreground_process_name()) then
+      local ok, mime = util.get_mime(url.file_path)
+      if ok then
+        if mime:find("directory") then
+          pane:send_text(wezterm.shell_join_args({ "cd", url.file_path }) .. "\r")
+          return false
+        end
+      end
+    end
+  end
+end)
+
 -- [[ key bindings ]]
 config.keys = {
   -- toggle padding
   {
     key = "P",
     mods = "CTRL|SHIFT",
-    action = wezterm.action.EmitEvent "toggle-padding",
+    action = wezterm.action.EmitEvent("toggle-padding"),
   },
 
   -- nagivate tabs
   {
-    key = '{',
-    mods = 'CTRL|SHIFT',
+    key = "{",
+    mods = "CTRL|SHIFT",
     action = wezterm.action.ActivateTabRelative(-1),
   },
   {
-    key = '}',
-    mods = 'CTRL|SHIFT',
+    key = "}",
+    mods = "CTRL|SHIFT",
     action = wezterm.action.ActivateTabRelative(1),
   },
 
   -- move tabs
   {
-    key = '{',
-    mods = 'CTRL|SHIFT|ALT',
+    key = "{",
+    mods = "CTRL|SHIFT|ALT",
     action = wezterm.action.MoveTabRelative(-1),
   },
   {
-    key = '}',
-    mods = 'CTRL|SHIFT|ALT',
+    key = "}",
+    mods = "CTRL|SHIFT|ALT",
     action = wezterm.action.MoveTabRelative(1),
   },
 
   -- navigate panes
   {
-    key = 'H',
-    mods = 'CTRL|SHIFT',
-    action = wezterm.action.ActivatePaneDirection 'Left',
+    key = "H",
+    mods = "CTRL|SHIFT",
+    action = wezterm.action.ActivatePaneDirection("Left"),
   },
   {
-    key = 'L',
-    mods = 'CTRL|SHIFT',
-    action = wezterm.action.ActivatePaneDirection 'Right',
+    key = "L",
+    mods = "CTRL|SHIFT",
+    action = wezterm.action.ActivatePaneDirection("Right"),
   },
   {
-    key = 'K',
-    mods = 'CTRL|SHIFT',
-    action = wezterm.action.ActivatePaneDirection 'Up',
+    key = "K",
+    mods = "CTRL|SHIFT",
+    action = wezterm.action.ActivatePaneDirection("Up"),
   },
   {
-    key = 'J',
-    mods = 'CTRL|SHIFT',
-    action = wezterm.action.ActivatePaneDirection 'Down',
+    key = "J",
+    mods = "CTRL|SHIFT",
+    action = wezterm.action.ActivatePaneDirection("Down"),
   },
 
   -- resize panes
   {
-    key = 'H',
-    mods = 'CTRL|SHIFT|ALT',
-    action = wezterm.action.AdjustPaneSize { 'Left', 5 },
+    key = "H",
+    mods = "CTRL|SHIFT|ALT",
+    action = wezterm.action.AdjustPaneSize({ "Left", 5 }),
   },
   {
-    key = 'L',
-    mods = 'CTRL|SHIFT|ALT',
-    action = wezterm.action.AdjustPaneSize { 'Right', 5 },
+    key = "L",
+    mods = "CTRL|SHIFT|ALT",
+    action = wezterm.action.AdjustPaneSize({ "Right", 5 }),
   },
   {
-    key = 'K',
-    mods = 'CTRL|SHIFT|ALT',
-    action = wezterm.action.AdjustPaneSize { 'Up', 5 },
+    key = "K",
+    mods = "CTRL|SHIFT|ALT",
+    action = wezterm.action.AdjustPaneSize({ "Up", 5 }),
   },
   {
-    key = 'J',
-    mods = 'CTRL|SHIFT|ALT',
-    action = wezterm.action.AdjustPaneSize { 'Down', 5 },
+    key = "J",
+    mods = "CTRL|SHIFT|ALT",
+    action = wezterm.action.AdjustPaneSize({ "Down", 5 }),
   },
 
   -- vertical split
   {
     key = "_",
     mods = "CTRL|SHIFT",
-    action = wezterm.action.SplitVertical { domain = "CurrentPaneDomain" },
+    action = wezterm.action.SplitVertical({ domain = "CurrentPaneDomain" }),
   },
 
   -- horizontal split

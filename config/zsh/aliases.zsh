@@ -1,5 +1,9 @@
+if [ -n "$DISPLAY" ]; then
+  alias ls="lsd --hyperlink=always"
+  alias rg='rg --hyperlink-format=kitty'
+fi
+
 # ls
-alias ls="lsd"
 alias ll='ls -l'
 alias la='ls -la'
 alias ldot='ls -ld .*'
