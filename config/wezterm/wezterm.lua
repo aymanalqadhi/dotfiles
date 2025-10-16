@@ -69,8 +69,10 @@ wezterm.on("open-uri", function(_, pane, uri)
       if ok then
         if mime:find("directory") then
           pane:send_text(wezterm.shell_join_args({ "cd", url.file_path }) .. "\r")
-          return false
+        else
+          pane:send_text(wezterm.shell_join_args({ "xdg-open", url.file_path }) .. "\r")
         end
+        return false
       end
     end
   end
