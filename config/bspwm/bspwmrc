@@ -116,6 +116,7 @@ once -w nm-applet &                                       # mounting util
 once -w udiskie &                                         # mounting util
 once -w -n redshift redshift-gtk &                        # reduced blue-light indicator
 once -w easyeffects --gapplication-service -q &           # audio effects
+once -w blueman-tray &                                    # bluetooth tray
 
 #############   finialization   ###############
 
