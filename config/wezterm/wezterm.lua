@@ -79,95 +79,135 @@ wezterm.on("open-uri", function(_, pane, uri)
 end)
 
 -- [[ key bindings ]]
+local act = wezterm.action
+
 config.keys = {
   -- toggle padding
   {
     key = "P",
     mods = "CTRL|SHIFT",
-    action = wezterm.action.EmitEvent("toggle-padding"),
+    action = act.EmitEvent("toggle-padding"),
   },
 
   -- nagivate tabs
   {
     key = "{",
     mods = "CTRL|SHIFT",
-    action = wezterm.action.ActivateTabRelative(-1),
+    action = act.ActivateTabRelative(-1),
   },
   {
     key = "}",
     mods = "CTRL|SHIFT",
-    action = wezterm.action.ActivateTabRelative(1),
+    action = act.ActivateTabRelative(1),
   },
 
   -- move tabs
   {
     key = "{",
     mods = "CTRL|SHIFT|ALT",
-    action = wezterm.action.MoveTabRelative(-1),
+    action = act.MoveTabRelative(-1),
   },
   {
     key = "}",
     mods = "CTRL|SHIFT|ALT",
-    action = wezterm.action.MoveTabRelative(1),
+    action = act.MoveTabRelative(1),
+  },
+
+  -- rename tabs
+  {
+    key = "Comma",
+    mods = "CTRL|SHIFT",
+    action = act.PromptInputLine({
+      description = "New tab name",
+      action = wezterm.action_callback(function(window, _, line)
+        if line then
+          window:active_tab():set_title(line)
+        end
+      end),
+    }),
   },
 
   -- navigate panes
   {
     key = "H",
     mods = "CTRL|SHIFT",
-    action = wezterm.action.ActivatePaneDirection("Left"),
+    action = act.ActivatePaneDirection("Left"),
   },
   {
     key = "L",
     mods = "CTRL|SHIFT",
-    action = wezterm.action.ActivatePaneDirection("Right"),
+    action = act.ActivatePaneDirection("Right"),
   },
   {
     key = "K",
     mods = "CTRL|SHIFT",
-    action = wezterm.action.ActivatePaneDirection("Up"),
+    action = act.ActivatePaneDirection("Up"),
   },
   {
     key = "J",
     mods = "CTRL|SHIFT",
-    action = wezterm.action.ActivatePaneDirection("Down"),
+    action = act.ActivatePaneDirection("Down"),
+  },
+  {
+    key = "S",
+    mods = "CTRL|SHIFT",
+    action = act.PaneSelect,
+  },
+  {
+    key = "S",
+    mods = "CTRL|SHIFT|ALT",
+    action = act.PaneSelect({ mode = "SwapWithActive" }),
   },
 
   -- resize panes
   {
     key = "H",
     mods = "CTRL|SHIFT|ALT",
-    action = wezterm.action.AdjustPaneSize({ "Left", 5 }),
+    action = act.AdjustPaneSize({ "Left", 5 }),
   },
   {
     key = "L",
     mods = "CTRL|SHIFT|ALT",
-    action = wezterm.action.AdjustPaneSize({ "Right", 5 }),
+    action = act.AdjustPaneSize({ "Right", 5 }),
   },
   {
     key = "K",
     mods = "CTRL|SHIFT|ALT",
-    action = wezterm.action.AdjustPaneSize({ "Up", 5 }),
+    action = act.AdjustPaneSize({ "Up", 5 }),
   },
   {
     key = "J",
     mods = "CTRL|SHIFT|ALT",
-    action = wezterm.action.AdjustPaneSize({ "Down", 5 }),
+    action = act.AdjustPaneSize({ "Down", 5 }),
   },
 
-  -- vertical split
+  -- rotate panes
+  {
+    key = "R",
+    mods = "CTRL|SHIFT",
+    action = wezterm.action.RotatePanes("Clockwise"),
+  },
+  {
+    key = "R",
+    mods = "CTRL|SHIFT|ALT",
+    action = wezterm.action.RotatePanes("CounterClockwise"),
+  },
+
+  -- splitss
   {
     key = "_",
     mods = "CTRL|SHIFT",
-    action = wezterm.action.SplitVertical({ domain = "CurrentPaneDomain" }),
+    action = act.SplitVertical({ domain = "CurrentPaneDomain" }),
   },
 
-  -- horizontal split
   {
     key = "|",
     mods = "CTRL|SHIFT",
-    action = wezterm.action.SplitHorizontal,
+    action = act.SplitHorizontal,
   },
+
+  -- launcher
+  { key = "Slash", mods = "CTRL|SHIFT", action = wezterm.action.ShowLauncher },
 }
 
 return config
