@@ -1,0 +1,55 @@
+#:schema https://mise.jdx.dev/schema/mise.json
+
+[tools]
+"aqua:jdx/usage" = "latest"
+
+# languages
+go = "1.27.1"
+node = "latest"
+rust = { version = "1.99.1", components = "rust-src,llvm-tools,rust-analyzer", profile = "default" }
+
+# build systems/generators
+cmake = "latest"
+meson = "latest"
+ninja = "latest"
+pnpm = "latest"
+
+# editors
+neovim = "nightly"
+
+# tools
+bat = "latest"
+bazelisk = "latest"
+buf = "latest"
+direnv = "latest"
+eza = "latest"
+fd = "latest"
+gup = "latest"
+hyperfine = "latest"
+jq = "latest"
+lazydocker = "latest"
+lazygit = "latest"
+lsd = "latest"
+ripgrep = "latest"
+tree-sitter = "latest"
+usql = "latest"
+yq = "latest"
+
+[shell_alias]
+# ls
+ls = "eza --color=auto --icons=auto --hyperlink=auto"
+ll = "ls -l"
+la = "ls -la"
+ldot = "ls -ld .*"
+
+# rg
+rg = "rg --hyperlink-format=kitty"
+
+# ffmpeg
+ffm = "ffmpeg -hide_banner"
+ffb = "ffprobe -hide_banner"
+ffp = "ffplay -hide_banner"
+
+# utilites
+urldecode = "python3 -c 'import sys, urllib.parse as ul; print(ul.unquote_plus(sys.argv[1]))'"
+urlencode = "python3 -c 'import sys, urllib.parse as ul; print (ul.quote_plus(sys.argv[1]))'"

@@ -1,0 +1,6 @@
+# theme
+--theme-dark="OneHalfDark"
+--theme-light="OneHalfLight"
+
+# font
+--italic-text="always"
