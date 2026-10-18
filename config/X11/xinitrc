@@ -1,7 +1,6 @@
 #!env bash
 
 # env
-export XDG_CURRENT_DESKTOP=bspwm
 export XDG_SESSION_TYPE=X11
 
 # keyboard

@@ -1,6 +1,7 @@
 #!/bin/sh
 
-# kvantum theme
+# env
+export XDG_CURRENT_DESKTOP=bspwm
 export QT_STYLE_OVERRIDE=kvantum
 
 # clipmenud opts
@@ -16,9 +17,6 @@ export JDK_JAVA_OPTIONS="\
 	-Dsun.java2d.opengl=true \
 	-Dswing.defaultlaf=com.sun.java.swing.plaf.gtk.GTKLookAndFeel \
 	-Dswing.crossplatformlaf=com.sun.java.swing.plaf.gtk.GTKLookAndFeel"
-
-# style
-export QT_STYLE_OVERRIDE=kvantum
 
 #############   configuration   ###############
 bspc config window_gap 8
