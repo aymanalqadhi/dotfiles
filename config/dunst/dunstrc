@@ -13,7 +13,7 @@ stack_duplicates = yes
 show_indicators = yes
 # hide_duplicate_count = false
 ignore_dbusclose = false
-timeout = 8
+timeout = 4
 
 # colors
 foreground = "#abb3bf"
@@ -22,8 +22,8 @@ background = "#171b23bb"
 # layout
 height = (0, 320)
 width = (320, 380)
-origin = bottom-right
-offset = (24, 24)
+origin = top-right
+offset = (8, 48)
 alignment = left
 corner_radius = 8
 #vertical_alignment = center
@@ -95,13 +95,13 @@ per_monitor_dpi = false
 [urgency_low]
 highlight = "#6fa6e7"
 default_icon = dialog-information
-timeout = 20
+timeout = 3
 
 [urgency_normal]
 background = "#171b23"
 highlight = "#5ca1ff"
 default_icon = dialog-warning
-timeout = 20
+timeout = 4
 override_pause_level = 30
 
 [urgency_critical]

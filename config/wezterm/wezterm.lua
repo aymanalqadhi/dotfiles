@@ -45,18 +45,20 @@ config.window_padding = padding_on
 -- [[ events ]]
 
 -- toggle padding on demand
-wezterm.on("toggle-padding", function(window, _)
-  local overrides = window:get_config_overrides() or {}
+wezterm.on("zen-mode", function(window, _)
+  local id = tostring(window:window_id())
 
-  if wezterm.GLOBAL.has_padding == false then
-    overrides.window_padding = padding_on
-    wezterm.GLOBAL.has_padding = true
+  if wezterm.GLOBAL.zen_mode then
+    wezterm.GLOBAL.zen_mode[id] = not wezterm.GLOBAL.zen_mode[id]
   else
-    overrides.window_padding = padding_off
-    wezterm.GLOBAL.has_padding = false
+    wezterm.GLOBAL.zen_mode = { [id] = true }
   end
 
-  window:set_config_overrides(overrides)
+  if wezterm.GLOBAL.zen_mode[id] then
+    window:set_config_overrides({ window_padding = padding_off })
+  else
+    window:set_config_overrides({ window_padding = padding_on })
+  end
 end)
 
 -- cd into clicked directory
@@ -84,9 +86,9 @@ local act = wezterm.action
 config.keys = {
   -- toggle padding
   {
-    key = "P",
+    key = "Z",
     mods = "CTRL|SHIFT",
-    action = act.EmitEvent("toggle-padding"),
+    action = act.EmitEvent("zen-mode"),
   },
 
   -- nagivate tabs
@@ -180,6 +182,11 @@ config.keys = {
     mods = "CTRL|SHIFT|ALT",
     action = act.AdjustPaneSize({ "Down", 5 }),
   },
+  {
+    key = "M",
+    mods = "CTRL",
+    action = wezterm.action.TogglePaneZoomState,
+  },
 
   -- rotate panes
   {
@@ -193,7 +200,7 @@ config.keys = {
     action = wezterm.action.RotatePanes("CounterClockwise"),
   },
 
-  -- splitss
+  -- splits
   {
     key = "_",
     mods = "CTRL|SHIFT",

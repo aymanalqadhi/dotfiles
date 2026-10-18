@@ -1,8 +1,11 @@
 # default permissions
 umask 027
 
+# locale
+export LANG="${LANG:-en_US.UTF-8}"
+
 # XDG paths
-export XDG_RUNTIME_DIR="${XDG_RUNTIME_DIR:/run/user/$UID}"
+export XDG_RUNTIME_DIR="${XDG_RUNTIME_DIR:-/run/user/$UID}"
 export XDG_CONFIG_HOME="${XDG_CONFIG_HOME:-$HOME/.config}"
 export XDG_CACHE_HOME="${XDG_CACHE_HOME:-$HOME/.cache}"
 export XDG_DATA_HOME="${XDG_DATA_HOME:-$HOME/.local/share}"
@@ -13,20 +16,21 @@ if [ -f "${XDG_CONFIG_HOME}/user-dirs.dirs" ]; then
 fi
 
 # config directory
-ZDOTDIR=${ZDOTDIR:-${XDG_CONFIG_HOME}/zsh}
+export ZDOTDIR=${ZDOTDIR:-${XDG_CONFIG_HOME}/zsh}
 
-# binaries path
+# editor/pager
+export EDITOR="${EDITOR:-nvim}"
+export VISUAL="${VISUAL:-nvim}"
+export LESS="${LESS:--g -i -M -R -w --use-color}"
+
+# paths
 typeset -U path PATH
-path+=(
-  # local binaries
-  $HOME/.local/{bin,scripts}
-)
-
-# functions path
 typeset -U fpath FPATH
-fpath+=(
-  # completion scripts
-  ${XDG_CONFIG_HOME}/zsh/comp
-)
+
+# local binaries
+path+=($HOME/.local/{bin,scripts})
+
+# completion scripts
+fpath+=(${XDG_CONFIG_HOME}/zsh/comp)
 
 # vim: ft=zsh sw=2 ts=2 et

@@ -4,22 +4,18 @@
 
 " Pdf, PostScript & Djvu
 filextype *.pdf,*.ps,*.djvu
-  \ zathura %f %i &,
-  \ open %f &,
+  \ {Open with zathura} zathura %f %i &,
+  \ {Open with default viewer} open %f &,
 fileview *.pdf
   \ pdftotext -nopgbrk %c -
 
-" Audio
-filetype *.wav,*.mp3,*.flac,*.ogg,*.oga,*.m4a,*.wma,*.aac,*.3gp,*.opus,*.wv
-  \ mpv %f,
-fileview <audio/*>
-  \ ffprobe -of json -v error -show_format -show_error %f
-
-" Video
+" Audio/Video
+filetype <audio/*>
+  \ {Play with mpv} mpv %f,
 filextype <video/*>
-  \ mpv %f %i &,
-fileview *.avi,*.mp4,*.wmv,*.dat,*.ogv,*.mkv,*.mpg,*.vob,*.flv,*.webm,*.mts,*.m2ts,*.rm,*.mov
-  \ ffprobe -of json -v error -show_format -show_error %f
+  \ {Play with mpv} mpv %f %i &,
+fileview <audio/*>,<video/*>
+  \ ffprobe -of json -v error -show_format -show_error %f | jq
 
 " Web
 filetype *.html,*.htm
@@ -35,7 +31,7 @@ filetype *.o
 filextype *.gif
   \ {Loop} mpv --loop=inf %f %i &,
 
-filextype *.bmp,*.jpg,*.jpeg,*.png,*.gif,*.xpm,*.svg,*.ico
+filextype *.bmp,*.jpg,*.jpeg,*.png,*.gif,*.xpm,*.svg,*.ico,*.webp
   \ feh -d --scale-down %f &,
 fileview *.bmp,*.jpg,*.jpeg,*.png,*.gif,*.xpm,*.svg,*.ico
   \ identify %f
@@ -78,12 +74,16 @@ fileview *.torrent
   \ aria2c -S
 
 " Directories
-filextype */
-"  \ {View in thunar} Thunar %f &,
 fileview .*/,*/ tree -FL 1 %f
 
-" All other files get free syntax highlighting
+" text files
+filetype <text/*>
+  \ {Edit} nvim %f
+fileview <text/*>
+  \ batcat --color always --wrap never --pager never %c -p
+
+" default
 fileview *
-  \ highlight --out-format=ansi --force -qWJ %pw -t 2 %c
+  \ xxd -R always %c | less
 
 " vim: filetype=vim
