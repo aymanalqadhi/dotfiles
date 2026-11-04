@@ -13,6 +13,10 @@ FAST_HIGHLIGHT=(chroma-make  "")
 PURE_CMD_MAX_EXEC_TIME=15
 PURE_GIT_PULL=0
 
+# FZF
+FZF_PATH="${XDG_CACHE_HOME:-$HOME/.cache}/fzf"
+LESSOPEN='| lessfilter-fzf %s'
+
 #
 # load plugins
 #
@@ -30,6 +34,7 @@ zinit wait lucid light-mode for \
     hlissner/zsh-autopair       \
     rupa/z                      \
     unixorn/fzf-zsh-plugin      \
+    Aloxaf/fzf-tab
 
 # completion
 zinit wait lucid light-mode for                  \

@@ -2,59 +2,63 @@ KEYTIMEOUT=1
 WORDCHARS='*?_-.[]~&;!#$%^(){}<>'
 
 # use terminfo to define keys
-zmodload zsh/terminfo
-zmodload zsh/complist
+zmodload zsh/terminfo || return 1
+zmodload zsh/complist || return 1
 
-autoload -Uz up-line-or-beginning-search && zle -N up-line-or-beginning-search
-autoload -Uz down-line-or-beginning-search && zle -N down-line-or-beginning-search
+autoload -Uz up-line-or-beginning-search down-line-or-beginning-search
+zle -N up-line-or-beginning-search
+zle -N down-line-or-beginning-search
 
 typeset -g -A key
 
 key=(
-  # basic
-  [Home]="${terminfo[khome]}"
-  [End]="${terminfo[kend]}"
-  [Insert]="${terminfo[kich1]}"
-  [Backspace]="${terminfo[kbs]-^?}"
-  [Delete]="${terminfo[kdch1]-[[3~}"
-  [Up]="${terminfo[kcuu1]}"
-  [Down]="${terminfo[kcud1]}"
-  [Left]="${terminfo[kcub1]}"
-  [Right]="${terminfo[kcuf1]}"
-  [PageUp]="${terminfo[kpp]}"
-  [PageDown]="${terminfo[knp]}"
-  # with modifiers
-  [Shift-Tab]="${terminfo[kcbt]}"
-  [Control-Left]="${terminfo[kLFT5]-\e[1;5D}"
-  [Control-Right]="${terminfo[kRIT5]-\e[1;5C}"
+  # Basic keys
+  [Home]="${terminfo[khome]:-$'\e[H'}"
+  [End]="${terminfo[kend]:-$'\e[F'}"
+  [Insert]="${terminfo[kich1]:-$'\e[2~'}"
+  [Backspace]="${terminfo[kbs]:-$'\x7f'}"
+  [Delete]="${terminfo[kdch1]:-$'\e[3~'}"
+  [Up]="${terminfo[kcuu1]:-$'\e[A'}"
+  [Down]="${terminfo[kcud1]:-$'\e[B'}"
+  [Left]="${terminfo[kcub1]:-$'\e[D'}"
+  [Right]="${terminfo[kcuf1]:-$'\e[C'}"
+  [PageUp]="${terminfo[kpp]:-$'\e[5~'}"
+  [PageDown]="${terminfo[knp]:-$'\e[6~'}"
+
+  # Modified keys
+  [Shift-Tab]="${terminfo[kcbt]:-$'\e[Z'}"
+  [Control-Left]="${terminfo[kLFT5]:-$'\e[1;5D'}"
+  [Control-Right]="${terminfo[kRIT5]:-$'\e[1;5C'}"
 )
 
-# basic keymaps
-bindkey -- "${key[Home]}"          beginning-of-line
-bindkey -- "${key[End]}"           end-of-line
-bindkey -- "${key[Insert]}"        overwrite-mode
-bindkey -- "${key[Backspace]}"     backward-delete-char
-bindkey -- "${key[Delete]}"        delete-char
-bindkey -- "${key[Up]}"            up-line-or-beginning-search
-bindkey -- "${key[Down]}"          down-line-or-beginning-search
-bindkey -- "${key[Left]}"          backward-char
-bindkey -- "${key[Right]}"         forward-char
-bindkey -- "${key[PageUp]}"        beginning-of-buffer-or-history
-bindkey -- "${key[PageDown]}"      end-of-buffer-or-history
-bindkey -- "${key[Shift-Tab]}"     reverse-menu-complete
-bindkey -- "${key[Control-Left]}"  backward-word
-bindkey -- "${key[Control-Right]}" forward-word
+bindkey_if_set() { [[ -n $1 ]] && bindkey -- "$1" "$2"; }
 
-# completion menu
-bindkey '^ '                 expand-or-complete-prefix
-bindkey -M menuselect '^y'   accept-line
-bindkey -M menuselect '^o'   accept-and-infer-next-history
-bindkey -M menuselect '^e'   send-break
-bindkey -M menuselect '^n'   menu-complete
-bindkey -M menuselect '^p'   reverse-menu-complete
-bindkey -M menuselect '^[[Z' reverse-menu-complete
-bindkey -M menuselect '^S'   history-incremental-search-forward
-bindkey -M menuselect '^R'   history-incremental-search-backward
+# basic keymaps
+bindkey_if_set "${key[Home]}"          beginning-of-line
+bindkey_if_set "${key[End]}"           end-of-line
+bindkey_if_set "${key[Insert]}"        overwrite-mode
+bindkey_if_set "${key[Backspace]}"     backward-delete-char
+bindkey_if_set "${key[Delete]}"        delete-char
+bindkey_if_set "${key[Up]}"            up-line-or-beginning-search
+bindkey_if_set "${key[Down]}"          down-line-or-beginning-search
+bindkey_if_set "${key[Left]}"          backward-char
+bindkey_if_set "${key[Right]}"         forward-char
+bindkey_if_set "${key[PageUp]}"        beginning-of-buffer-or-history
+bindkey_if_set "${key[PageDown]}"      end-of-buffer-or-history
+bindkey_if_set "${key[Shift-Tab]}"     reverse-menu-complete
+bindkey_if_set "${key[Control-Left]}"  backward-word
+bindkey_if_set "${key[Control-Right]}" forward-word
+
+# completion
+bindkey '^ '                  expand-or-complete-prefix
+bindkey -M menuselect '^y'    accept-line
+bindkey -M menuselect '^o'    accept-and-infer-next-history
+bindkey -M menuselect '^e'    send-break
+bindkey -M menuselect '^n'    menu-complete
+bindkey -M menuselect '^p'    reverse-menu-complete
+bindkey -M menuselect $'\e[Z' reverse-menu-complete
+bindkey -M menuselect '^S'    history-incremental-search-forward
+bindkey -M menuselect '^R'    history-incremental-search-backward
 
 # vi-mode
 ## history search
@@ -79,10 +83,16 @@ bindkey -M viins '^K' kill-line
 bindkey -M viins '^U' backward-kill-line
 
 # setup application mode
-if (( ${+terminfo[smkx]} && ${+terminfo[rmkx]} )); then
+if [ -n "${terminfo[smkx]:-}" ] && [ -n "${terminfo[rmkx]:-}" ]; then
   autoload -Uz add-zle-hook-widget
-  function zle_application_mode_start { echoti smkx }
-  function zle_application_mode_stop { echoti rmkx }
+
+  zle_application_mode_start() {
+    echoti smkx;
+  }
+  zle_application_mode_stop() {
+    echoti rmkx;
+  }
+
   add-zle-hook-widget -Uz zle-line-init zle_application_mode_start
   add-zle-hook-widget -Uz zle-line-finish zle_application_mode_stop
 fi

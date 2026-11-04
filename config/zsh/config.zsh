@@ -28,17 +28,23 @@ unsetopt hist_beep
 unsetopt flow_control
 unsetopt singlelinezle
 
+# Enable the directory stack
+setopt auto_pushd
+setopt pushd_ignore_dups
+setopt pushd_minus
+setopt pushd_silent
+
 # completion menu style
 zstyle ':completion:*' completer _extensions _complete _match _approximate
 zstyle ':completion:*' complete true
 zstyle ':completion:*' use-cache on
 zstyle ':completion:*' cache-path "$XDG_CACHE_HOME/zsh/.zcompcache"
-zstyle ':completion:*' menu select search
+# zstyle ':completion:*' menu select search # taken over by fzf-tab
 zstyle ':completion:*' file-sort change reverse
-zstyle ':completion:*:*:*:*:corrections' format '%F{yellow}!- %d (errors: %e) -!%f'
-zstyle ':completion:*:*:*:*:descriptions' format '%F{blue}-- %D %d --%f'
-zstyle ':completion:*:*:*:*:messages' format ' %F{purple} -- %d --%f'
-zstyle ':completion:*:*:*:*:warnings' format ' %F{red}-- no matches found --%f'
+zstyle ':completion:*:*:*:*:corrections' format '> %d (errors: %e)'
+zstyle ':completion:*:*:*:*:descriptions' format '[%d]'
+zstyle ':completion:*:*:*:*:messages' format '<%d>'
+zstyle ':completion:*:*:*:*:warnings' format '! no matches found'
 zstyle ':completion:*:default' list-prompt '%S%M matches%s'
 zstyle ':completion:*:*:*:*:default' list-colors ${(s.:.)LS_COLORS}
 zstyle ':completion:*' group-name ''
@@ -47,5 +53,14 @@ zstyle ':completion:*' squeeze-slashes true
 zstyle ':completion:*' keep-prefix true
 zstyle ':completion:*' complete-options true
 zstyle ':completion:*' matcher-list '' 'm:{a-zA-Z}={A-Za-z}' 'r:|[._-]=* r:|=*' 'l:|=* r:|=*'
+zstyle ':completion:*:*:(cd|chdir|pushd):*' complete-options false
+zstyle ':completion:*:*:(cd|chdir|pushd):*' tag-order local-directories directory-stack path-directories
+
+# custom fzf flags
+zstyle ':completion:*' menu no
+zstyle ':completion:*:git-checkout:*' sort false
+zstyle ':fzf-tab:complete:cd:*' fzf-preview 'ls -1 $realpath' # shuck: ignore=C005
+zstyle ':fzf-tab:*' use-fzf-default-opts yes
+zstyle ':fzf-tab:*' switch-group '<' '>'
 
 # vim: ft=zsh sw=2 ts=2 et
